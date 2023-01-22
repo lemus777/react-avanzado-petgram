@@ -1,35 +1,78 @@
-import React from 'react'
-import { Article, ImgWrapper, Img, Button } from './styles'
-import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
-import { useLocalStorate } from '../../hooks/useLocalStorage'
+import React, { Fragment } from 'react'
+import { Article, ImgWrapper, Img } from './styles'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useNearScreen } from '../../hooks/useNearScreen'
+import { FavButton } from '../FavButton'
 
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
 
 export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
   const [show, element] = useNearScreen() // la constante es lo que retorna el hook useNearScreen
   const key = `like-${id}` // esta key incluye la id para ser única para cada elemento
-  const [liked, setLiked] = useLocalStorate(key, false) // usaremos el localStorage con la key declarada, de valor inicial false (se usará si no hay localStorage guardada, ver la lógica de la función en el customHook)
+  const [liked, setLiked] = useLocalStorage(key, false) // usaremos el localStorage con la key declarada, de valor inicial false (se usará si no hay localStorage guardada, ver la lógica de la función en el customHook)
 
-  console.log(liked)
-
-  const Icon = liked ? MdFavorite : MdFavoriteBorder
+  const handleFavClick = () => setLiked(!liked)
 
   return (
     <Article ref={element}>
       {
-        show && <>
-          <a href={`/detail/${id}`}>
+        show && <Fragment>
+          <a href={`/?detail=${id}`}>
+            <ImgWrapper>
+              <Img src={src} />
+            </ImgWrapper>
+          </a>
+          <FavButton liked={liked} likes={likes} onClick={handleFavClick} />
+        </Fragment>
+      }
+    </Article>
+  )
+}
+
+// si funcionara vercel
+/* import React, { Fragment } from 'react'
+import { Article, ImgWrapper, Img } from './styles'
+
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { useNearScreen } from '../../hooks/useNearScreen'
+
+import { FavButton } from '../FavButton'
+import { ToggleLikeMutation } from '../../container/ToggleLikeMutation'
+
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+
+export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
+  const [show, element] = useNearScreen()
+  const key = `like-${id}`
+  const [liked, setLiked] = useLocalStorage(key, false)
+
+  return (
+    <Article ref={element}>
+      {
+        show && <Fragment>
+          <a href={`/?detail=${id}`}>
             <ImgWrapper>
               <Img src={src} />
             </ImgWrapper>
           </a>
 
-          <Button onClick={() => setLiked(!liked)}>
-            <Icon size='32px' />{likes} likes!
-          </Button>
-        </>
+          <ToggleLikeMutation>
+            {
+              (toggleLike) => {
+                const handleFavClick = () => {
+                  !liked && toggleLike({ variables: {
+                    input: { id }
+                  } })
+
+                  setLiked(!liked)
+                }
+
+                return <FavButton liked={liked} likes={likes} onClick={handleFavClick} />
+              }
+            }
+          </ToggleLikeMutation>
+        </Fragment>
       }
     </Article>
   )
-}
+} */
