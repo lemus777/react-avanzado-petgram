@@ -11,41 +11,13 @@ export const ListOfPhotoCards = () => {
 }
 
 // Si funcionara vercel sería así:
-// DEPENDENCIES
-// import React from "react";
-// import { useQuery, gql } from "@apollo/client";
+// import React from 'react'
+// import { PhotoCard } from '../PhotoCard'
 
-// COMPONENTS
-// import { PhotoCard } from "../PhotoCard";
-
-// const whitPhotos = gql`
-//  query getPhotos {
-//    photos {
-//      id
-//      categoryId
-//      src
-//      likes
-//      userId
-//      liked
-//    }
-//  }
-// `;
-
-// export const ListOfPhotoCards = () => {
-//  const { loading, error, data } = useQuery(whitPhotos);
-
-//  if (error) {
-//    return <h2>Internal Server Error</h2>;
-//  }
-//  if (loading) {
-//    return <h2>Loading...</h2>;
-//  }
-
-//  return (
-//    <ul>
-//      {data.photos.map((photo) => (
-//        <PhotoCard key={photo.id} {...photo} />
-//      ))}
-//    </ul>
-//  );
-// };
+// export const ListOfPhotoCardsComponent = ({ data: { photos = [] } } = {}) => {
+//   return (
+//     <ul>
+//       {photos.map(photo => <PhotoCard key={photo.id} {...photo} />)}
+//     </ul>
+//   )
+// }
