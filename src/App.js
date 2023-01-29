@@ -1,26 +1,22 @@
-import React, { Fragment } from 'react'
-import { ListOfCategories } from './components/ListOfCategories'
+import React from 'react'
 import { GlobalStyle } from './styles/GlobalStyles'
-import { ListOfPhotoCards } from './components/ListOfPhotoCards' // si funcionara vercel no se usa esta
-// import { ListOfPhotoCards } from './container/ListOfPhotoCards' si funcionara vercel
 import { Logo } from './components/Logo'
+import { Detail } from './pages/Detail'
+import { Home } from './pages/Home'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 export const App = () => {
-  const urlParams = new window.URLSearchParams(window.location.search)
-  const detailId = urlParams.get('detail')
-
   return (
     <div>
-      <GlobalStyle />
-      <Logo />
-      {
-        detailId
-          ? <h1>Detail Id</h1>
-          : <Fragment>
-            <ListOfCategories />
-            <ListOfPhotoCards categoryId={2} />
-          </Fragment>
-      }
+      <BrowserRouter>
+        <GlobalStyle />
+        <Logo />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/pet/:id' element={<Home />} />
+          <Route path='/detail/:detailId' element={<Detail />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
