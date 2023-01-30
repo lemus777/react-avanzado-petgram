@@ -1,6 +1,7 @@
 import React from 'react'
 import { GlobalStyle } from './styles/GlobalStyles'
 import { Logo } from './components/Logo'
+import { NavBar } from './components/NavBar'
 import { Detail } from './pages/Detail'
 import { Home } from './pages/Home'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -16,6 +17,7 @@ export const App = () => {
           <Route path='/pet/:id' element={<Home />} />
           <Route path='/detail/:detailId' element={<Detail />} />
         </Routes>
+        <NavBar />
       </BrowserRouter>
     </div>
   )
