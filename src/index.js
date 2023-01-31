@@ -1,11 +1,15 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { App } from './App'
-
+import Context from './Context'
 const container = document.getElementById('app')
 const root = createRoot(container)
 
-root.render(<App />)
+root.render(
+  <Context.Provider>
+    <App />
+  </Context.Provider>
+)
 
 // Así sería si funcionara vercel
 // DEPENDENCIES

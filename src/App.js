@@ -10,10 +10,8 @@ import { User } from './pages/User'
 import { NotRegisteredUser } from './pages/NotRegisteredUser'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Context from './Context'
 
-const UserLogged = ({ children }) => {
-  return children({ isAuth: false })
-}
 export const App = () => {
   return (
     <div>
@@ -25,7 +23,7 @@ export const App = () => {
           <Route path='/pet/:id' element={<Home />} />
           <Route path='/detail/:detailId' element={<Detail />} />
         </Routes>
-        <UserLogged>
+        <Context.Consumer>
           {
             ({ isAuth }) =>
               isAuth
@@ -38,7 +36,7 @@ export const App = () => {
                   <Route path='/user' element={<NotRegisteredUser />} />
                 </Routes>
           }
-        </UserLogged>
+        </Context.Consumer>
         <NavBar />
       </BrowserRouter>
     </div>
