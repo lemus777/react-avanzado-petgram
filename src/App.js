@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { GlobalStyle } from './styles/GlobalStyles'
 import { Logo } from './components/Logo'
 import { NavBar } from './components/NavBar'
@@ -8,7 +8,7 @@ import { Home } from './pages/Home'
 import { Favs } from './pages/Favs'
 import { User } from './pages/User'
 import { NotRegisteredUser } from './pages/NotRegisteredUser'
-
+import { NotFound } from './pages/NotFound'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Context from './Context'
 
@@ -22,6 +22,7 @@ export const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/pet/:id' element={<Home />} />
           <Route path='/detail/:detailId' element={<Detail />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
         <Context.Consumer>
           {
